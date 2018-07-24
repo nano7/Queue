@@ -1,0 +1,38 @@
+{
+    "name"       : "nano7/queue",
+    "description": "The Nano7 Queue package.",
+    "license"    : "GPL-3.0-only",
+
+    "authors"    : [
+        {
+            "name" : "Bruno Goncalves",
+            "email": "bugotech@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php"                   : ">=5.5.0",
+        "nano7/foundation"      : "dev-master"
+    },
+
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+
+        "psr-4": {
+            "Nano7\\Queue\\": "src/"
+        }
+    },
+
+    "extra": {
+        "nano7": {
+            "providers": [
+                "Nano7\\Queue\\QueueServiceProviders"
+            ]
+        }
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable"    : true
+}
