@@ -1,15 +1,18 @@
 <?php
 
-/*
 if (! function_exists('queue')) {
-    function db($connection = null)
+    /**
+     * @param null $connection
+     * @return \Nano7\Queue\QueueManager|\Nano7\Queue\Contracts\QueueContract
+     */
+    function queue($connection = null)
     {
-        $db = app('db');
+        $queue = app('queue');
 
         if (is_null($connection)) {
-            return $db;
+            return $queue;
         }
 
-        return $db->connection($connection);
+        return $queue->connection($connection);
     }
-}/**/
+}
