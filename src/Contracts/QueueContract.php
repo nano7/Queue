@@ -66,7 +66,7 @@ interface QueueContract
      * Pop the next job off of the queue.
      *
      * @param  string  $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     * @return JobContract|null
      */
     public function pop($queue = null);
 }
