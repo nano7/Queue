@@ -99,7 +99,7 @@ abstract class Job
             throw new \Exception('Unable to JSON decode payload. Invalid job action');
         }
 
-        $data = Arr::get($json, 'job.data', []);
+        $data = Arr::get($json, 'data', []);
 
         return $this->app->call($job, [$this, $data], 'handle');
     }

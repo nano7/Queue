@@ -69,11 +69,11 @@ class SqsQueue extends Queue implements QueueContract
      * Push a new job onto the queue.
      *
      * @param  string  $job
-     * @param  mixed   $data
+     * @param  array   $data
      * @param  string  $queue
      * @return mixed
      */
-    public function push($job, $data = '', $queue = null)
+    public function push($job, $data = [], $queue = null)
     {
         return $this->pushRaw($this->createPayload($job, $data), $queue);
     }
@@ -98,11 +98,11 @@ class SqsQueue extends Queue implements QueueContract
      *
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  string  $job
-     * @param  mixed   $data
+     * @param  array   $data
      * @param  string  $queue
      * @return mixed
      */
-    public function later($delay, $job, $data = '', $queue = null)
+    public function later($delay, $job, $data = [], $queue = null)
     {
         return $this->sqs->sendMessage([
             'QueueUrl' => $this->getQueue($queue),

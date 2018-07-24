@@ -58,4 +58,12 @@ interface JobContract
      * @return void
      */
     public function delete();
+
+    /**
+     * Call action to job.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function call();
 }

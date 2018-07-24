@@ -99,4 +99,31 @@ abstract class Queue
     {
         return Carbon::now()->getTimestamp();
     }
+
+    /**
+     * @param $job
+     * @param array $data
+     * @return string
+     * @throws InvalidPayloadException
+     */
+    protected function createPayload($job, $data = [])
+    {
+        $message = (object) [
+            'job' => (object) [
+                'action' => $job,
+            ],
+
+            'data' => $data,
+        ];
+
+        $payload = json_encode($message);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw new InvalidPayloadException(
+                'Unable to JSON encode payload. Error code: '.json_last_error()
+            );
+        }
+
+        return $payload;
+    }
 }
