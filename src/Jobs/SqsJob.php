@@ -3,9 +3,8 @@
 use Aws\Sqs\SqsClient;
 use Nano7\Foundation\Application;
 use Nano7\Foundation\Support\Arr;
-use Nano7\Queue\Contracts\JobContract;
 
-class SqsJob extends Job implements JobContract
+class SqsJob extends Job
 {
     /**
      * @var SqsClient

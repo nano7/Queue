@@ -4,9 +4,8 @@ use Aws\Sqs\SqsClient;
 use Nano7\Queue\Jobs\SqsJob;
 use Nano7\Foundation\Application;
 use Nano7\Queue\Contracts\JobContract;
-use Nano7\Queue\Contracts\QueueContract;
 
-class SqsQueue extends Queue implements QueueContract
+class SqsQueue extends Queue
 {
     /**
      * The Amazon SQS instance.

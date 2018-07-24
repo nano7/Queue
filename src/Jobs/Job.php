@@ -2,8 +2,9 @@
 
 use Nano7\Foundation\Application;
 use Nano7\Foundation\Support\Arr;
+use Nano7\Queue\Contracts\JobContract;
 
-abstract class Job
+abstract class Job implements JobContract
 {
     /**
      * @var Application

@@ -2,8 +2,9 @@
 
 use Carbon\Carbon;
 use Nano7\Foundation\Application;
+use Nano7\Queue\Contracts\QueueContract;
 
-abstract class Queue
+abstract class Queue implements QueueContract
 {
     /**
      * @var Application
