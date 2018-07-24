@@ -90,18 +90,32 @@ abstract class Job implements JobContract
      */
     public function call()
     {
-        $json = json_decode($this->getRawBody(), true);
-        if (is_null($json)) {
-            throw new \Exception('Unable to JSON decode payload.');
+        try {
+            $json = json_decode($this->getRawBody(), true);
+            if (is_null($json)) {
+                throw new \Exception('Unable to JSON decode payload.');
+            }
+
+            $job = Arr::get($json, 'job.action');
+            if (is_null($job)) {
+                throw new \Exception('Unable to JSON decode payload. Invalid job action');
+            }
+
+            $data = Arr::get($json, 'data', []);
+
+            // Executar
+            $response = $this->app->call($job, [$this, $data], 'handle');
+
+            // Verificar resposta e se não retornou nada excluir mensagem da fila
+            if (is_null($response) && (! $this->isDeletedOrReleased())) {
+                $this->delete();
+            }
+
+            return $response;
+        } catch (\Exception $e) {
+            $this->release(3 * 60);
+
+            throw $e;
         }
-
-        $job = Arr::get($json, 'job.action');
-        if (is_null($job)) {
-            throw new \Exception('Unable to JSON decode payload. Invalid job action');
-        }
-
-        $data = Arr::get($json, 'data', []);
-
-        return $this->app->call($job, [$this, $data], 'handle');
     }
 }
