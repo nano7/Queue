@@ -3,6 +3,7 @@
 use Aws\Sqs\SqsClient;
 use Nano7\Queue\Queue;
 use Nano7\Foundation\Application;
+use Nano7\Queue\Contracts\JobContract;
 use Nano7\Queue\Contracts\QueueContract;
 
 class SqsQueue extends Queue implements QueueContract
@@ -114,7 +115,7 @@ class SqsQueue extends Queue implements QueueContract
      * Pop the next job off of the queue.
      *
      * @param  string  $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     * @return JobContract
      */
     public function pop($queue = null)
     {
