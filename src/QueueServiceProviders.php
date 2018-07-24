@@ -2,6 +2,7 @@
 
 use Aws\Sqs\SqsClient;
 use Nano7\Queue\Queues\SqsQueue;
+use Nano7\Foundation\Support\Arr;
 use Nano7\Foundation\Support\ServiceProvider;
 
 class QueueServiceProviders extends ServiceProvider
@@ -45,6 +46,10 @@ class QueueServiceProviders extends ServiceProvider
                     'connect_timeout' => 60,
                 ],
             ], $config);
+
+            if ($config['key'] && $config['secret']) {
+                $config['credentials'] = Arr::only($config, ['key', 'secret']);
+            }
 
             $client = new SqsClient($config);
 
