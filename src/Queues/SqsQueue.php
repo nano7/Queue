@@ -1,7 +1,7 @@
 <?php namespace Nano7\Queue\Queues;
 
 use Aws\Sqs\SqsClient;
-use Nano7\Queue\Queue;
+use Nano7\Queue\Jobs\SqsJob;
 use Nano7\Foundation\Application;
 use Nano7\Queue\Contracts\JobContract;
 use Nano7\Queue\Contracts\QueueContract;
@@ -125,7 +125,7 @@ class SqsQueue extends Queue implements QueueContract
         ]);
 
         if (! is_null($response['Messages']) && count($response['Messages']) > 0) {
-            return new SqsJob($this->sqs, $response['Messages'][0], $queue);
+            return new SqsJob($this->app, $this->sqs, $response['Messages'][0], $queue);
         }
 
         return null;

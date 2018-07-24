@@ -24,7 +24,28 @@ interface JobContract
     public function attempts();
 
     /**
-     * Release the job back into the queue.
+     * Determine if the job has been deleted.
+     *
+     * @return bool
+     */
+    public function isDeleted();
+
+    /**
+     * Determine if the job has been released.
+     *
+     * @return bool
+     */
+    public function isReleased();
+
+    /**
+     * Determine if the job has been deleted or released.
+     *
+     * @return bool
+     */
+    public function isDeletedOrReleased();
+
+    /**
+     * Release the job back into the queue (in seconds).
      *
      * @param  int   $delay
      * @return void

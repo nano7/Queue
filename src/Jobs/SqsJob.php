@@ -1,10 +1,11 @@
-<?php namespace Nano7\Queue\Queues;
+<?php namespace Nano7\Queue\Jobs;
 
 use Aws\Sqs\SqsClient;
+use Nano7\Foundation\Application;
 use Nano7\Foundation\Support\Arr;
 use Nano7\Queue\Contracts\JobContract;
 
-class SqsJob implements JobContract
+class SqsJob extends Job implements JobContract
 {
     /**
      * @var SqsClient
@@ -23,8 +24,16 @@ class SqsJob implements JobContract
      */
     protected $queue = '';
 
-    public function __construct(SqsClient $sqs, array $job, $queue)
+    /**
+     * @param Application $app
+     * @param SqsClient $sqs
+     * @param array $job
+     * @param $queue
+     */
+    public function __construct(Application $app, SqsClient $sqs, array $job, $queue)
     {
+        parent::__construct($app);
+
         $this->sqs = $sqs;
         $this->job = $job;
         $this->queue = $queue;
@@ -68,6 +77,12 @@ class SqsJob implements JobContract
      */
     public function release($delay = 0)
     {
+        if ($this->isDeleted()) {
+            return;
+        }
+
+        parent::release($delay);
+
         $this->sqs->changeMessageVisibility([
             'QueueUrl' => $this->queue,
             'ReceiptHandle' => $this->job['ReceiptHandle'],
@@ -82,6 +97,12 @@ class SqsJob implements JobContract
      */
     public function delete()
     {
+        if ($this->isDeleted()) {
+            return;
+        }
+
+        parent::delete();
+
         $this->sqs->deleteMessage([
             'QueueUrl' => $this->queue, 'ReceiptHandle' => $this->job['ReceiptHandle'],
         ]);
