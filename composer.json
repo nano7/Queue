@@ -3,7 +3,7 @@
     "description": "The Nano7 Queue package.",
     "license"    : "GPL-3.0-only",
 
-    "authors"    : [
+    "authors": [
         {
             "name" : "Bruno Goncalves",
             "email": "bugotech@gmail.com"
@@ -11,8 +11,9 @@
     ],
 
     "require": {
-        "php"                   : ">=5.5.0",
-        "nano7/foundation"      : "dev-master"
+        "php"             : ">=5.5.0",
+        "nano7/foundation": "dev-master",
+        "aws/aws-sdk-php" : "3.0.*"
     },
 
     "autoload": {
