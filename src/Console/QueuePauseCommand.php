@@ -8,11 +8,6 @@ class QueuePauseCommand extends Command
     use DaemonControl;
 
     /**
-     * @var string
-     */
-    public $flowControlName = 'queue.daemon';
-
-    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -31,6 +26,8 @@ class QueuePauseCommand extends Command
      */
     public function handle()
     {
+        $this->flowControlName = 'queue.daemon';
+
         $start = (! ($this->argument('mode') == 'off'));
 
         if ($start) {

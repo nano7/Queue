@@ -8,11 +8,6 @@ class QueueWorkCommand extends Command
     use DaemonControl;
 
     /**
-     * @var string
-     */
-    public $flowControlName = 'queue.daemon';
-
-    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -61,6 +56,8 @@ class QueueWorkCommand extends Command
      */
     protected function runWork($connection, $queue)
     {
+        $this->flowControlName = 'queue.daemon';
+
         $job = queue($connection)->pop($queue);
         if (is_null($job)) {
             return false;
