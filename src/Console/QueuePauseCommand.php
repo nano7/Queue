@@ -1,7 +1,7 @@
 <?php namespace Nano7\Queue\Console;
 
 use Nano7\Console\Command;
-use Nano7\Console\DaemonControl;
+use Nano7\Console\Traits\DaemonControl;
 
 class QueuePauseCommand extends Command
 {
