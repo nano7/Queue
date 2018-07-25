@@ -13,6 +13,10 @@ class QueueServiceProviders extends ServiceProvider
     public function register()
     {
         $this->registerManager();
+
+        $this->command('\Nano7\Queue\Console\QueueAbortCommand');
+        $this->command('\Nano7\Queue\Console\QueuePauseCommand');
+        $this->command('\Nano7\Queue\Console\QueueWorkCommand');
     }
 
     /**

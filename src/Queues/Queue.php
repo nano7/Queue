@@ -109,20 +109,17 @@ abstract class Queue implements QueueContract
      */
     protected function createPayload($job, $data = [])
     {
-        $message = (object) [
-            'job' => (object) [
+        $message = [
+            'job' => [
                 'action' => $job,
             ],
-
             'data' => $data,
         ];
 
         $payload = json_encode($message);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new InvalidPayloadException(
-                'Unable to JSON encode payload. Error code: '.json_last_error()
-            );
+            throw new \Exception('Unable to JSON encode payload. Error code: ' . json_last_error());
         }
 
         return $payload;
