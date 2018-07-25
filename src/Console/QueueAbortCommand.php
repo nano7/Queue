@@ -27,6 +27,7 @@ class QueueAbortCommand extends Command
     public function handle()
     {
         $this->flowControlName = 'queue.daemon';
+        $this->prepareFiles();
 
         $this->quit();
 

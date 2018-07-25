@@ -31,6 +31,8 @@ class QueueWorkCommand extends Command
      */
     public function handle()
     {
+        $this->flowControlName = 'queue.daemon';
+
         $connection = $this->argument('connection');
         $queue = $this->option('queue');
         $once = $this->option('once');
@@ -56,8 +58,6 @@ class QueueWorkCommand extends Command
      */
     protected function runWork($connection, $queue)
     {
-        $this->flowControlName = 'queue.daemon';
-
         $job = queue($connection)->pop($queue);
         if (is_null($job)) {
             return false;
@@ -71,5 +71,7 @@ class QueueWorkCommand extends Command
         } catch (\Exception $e) {
             $this->error('ERROR');
         }
+
+        return null;
     }
 }

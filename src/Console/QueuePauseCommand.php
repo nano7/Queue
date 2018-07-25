@@ -27,6 +27,7 @@ class QueuePauseCommand extends Command
     public function handle()
     {
         $this->flowControlName = 'queue.daemon';
+        $this->prepareFiles();
 
         $start = (! ($this->argument('mode') == 'off'));
 
