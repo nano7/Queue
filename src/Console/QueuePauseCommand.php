@@ -12,7 +12,9 @@ class QueuePauseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'queue:pause {mode? : The mode pause on or off}';
+    protected $signature = 'queue:pause
+                            {mode? : The mode pause on or off}
+                            {--daemon=default : Name of daemon control flow}';
 
     /**
      * The console command description.
@@ -26,7 +28,7 @@ class QueuePauseCommand extends Command
      */
     public function handle()
     {
-        $this->flowControlName = 'queue.daemon';
+        $this->flowControlName = sprintf('queue.daemon.%s', $this->option('daemon'));
         $this->prepareFiles();
 
         $start = (! ($this->argument('mode') == 'off'));

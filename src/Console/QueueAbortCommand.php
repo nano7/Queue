@@ -12,7 +12,8 @@ class QueueAbortCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'queue:abort';
+    protected $signature = 'queue:abort
+                            {--daemon=default : Name of daemon control flow}';
 
     /**
      * The console command description.
@@ -26,7 +27,7 @@ class QueueAbortCommand extends Command
      */
     public function handle()
     {
-        $this->flowControlName = 'queue.daemon';
+        $this->flowControlName = sprintf('queue.daemon.%s', $this->option('daemon'));
         $this->prepareFiles();
 
         $this->quit();

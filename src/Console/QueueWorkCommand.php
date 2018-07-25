@@ -17,7 +17,8 @@ class QueueWorkCommand extends Command
                            {--queue= : The names of the queues to work}
                            {--once : Only process the next job on the queue}
                            {--memory=128 : The memory limit in megabytes}
-                           {--sleep=3 : Number of seconds to sleep when no job is available}';
+                           {--sleep=3 : Number of seconds to sleep when no job is available}
+                           {--daemon=default : Name of daemon control flow}';
 
     /**
      * The console command description.
@@ -31,7 +32,7 @@ class QueueWorkCommand extends Command
      */
     public function handle()
     {
-        $this->flowControlName = 'queue.daemon';
+        $this->flowControlName = sprintf('queue.daemon.%s', $this->option('daemon'));
 
         $connection = $this->argument('connection');
         $queue = $this->option('queue');
@@ -63,7 +64,7 @@ class QueueWorkCommand extends Command
             return false;
         }
 
-        $this->output->write('Run job...');
+        $this->output->write('Run job ' . $job->getJobId() . ' [' . $job->attempts() . '] ');
         try {
             $job->call();
 
