@@ -64,9 +64,9 @@ class QueueServiceProviders extends ServiceProvider
         $manager->extend('database', function($app, $config) {
             return new DatabaseQueue(
                 $app,
-                $app['db']->connection($config['connection']),
-                $config['collection'],
-                $config['queue'],
+                $app['db']->connection($config['connection'] ? $config['connection'] : null),
+                $config['collection'] ? $config['collection'] : 'jobs',
+                $config['queue'] ? $config['queue'] : 'default',
                 $config['retry_after'] ? $config['retry_after'] : 60
             );
         });
