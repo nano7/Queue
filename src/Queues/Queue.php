@@ -3,9 +3,12 @@
 use Carbon\Carbon;
 use Nano7\Foundation\Application;
 use Nano7\Queue\Contracts\QueueContract;
+use Nano7\Foundation\Support\InteractsWithTime;
 
 abstract class Queue implements QueueContract
 {
+    use InteractsWithTime;
+
     /**
      * @var Application
      */
@@ -44,61 +47,6 @@ abstract class Queue implements QueueContract
     public function laterOn($queue, $delay, $job, $data = '')
     {
         return $this->later($delay, $job, $data, $queue);
-    }
-
-    /**
-     * Get the number of seconds until the given DateTime.
-     *
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @return int
-     */
-    protected function secondsUntil($delay)
-    {
-        $delay = $this->parseDateInterval($delay);
-
-        return $delay instanceof DateTimeInterface
-            ? max(0, $delay->getTimestamp() - $this->currentTime())
-            : (int) $delay;
-    }
-
-    /**
-     * Get the "available at" UNIX timestamp.
-     *
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @return int
-     */
-    protected function availableAt($delay = 0)
-    {
-        $delay = $this->parseDateInterval($delay);
-
-        return $delay instanceof DateTimeInterface
-            ? $delay->getTimestamp()
-            : Carbon::now()->addSeconds($delay)->getTimestamp();
-    }
-
-    /**
-     * If the given value is an interval, convert it to a DateTime instance.
-     *
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @return \DateTimeInterface|int
-     */
-    protected function parseDateInterval($delay)
-    {
-        if ($delay instanceof DateInterval) {
-            $delay = Carbon::now()->add($delay);
-        }
-
-        return $delay;
-    }
-
-    /**
-     * Get the current system time as a UNIX timestamp.
-     *
-     * @return int
-     */
-    protected function currentTime()
-    {
-        return Carbon::now()->getTimestamp();
     }
 
     /**

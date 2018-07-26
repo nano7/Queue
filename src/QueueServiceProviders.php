@@ -1,6 +1,7 @@
 <?php namespace Nano7\Queue;
 
 use Aws\Sqs\SqsClient;
+use Nano7\Queue\Queues\DatabaseQueue;
 use Nano7\Queue\Queues\SqsQueue;
 use Nano7\Foundation\Support\Arr;
 use Nano7\Queue\Queues\NullQueue;
@@ -31,6 +32,9 @@ class QueueServiceProviders extends ServiceProvider
             // Driver Null
             $this->registerNullQueue($manager);
 
+            // Driver Database
+            $this->registerDatabaseQueue($manager);
+
             // Driver Aws SQS
             $this->registerAwsSqsQueue($manager);
 
@@ -47,6 +51,24 @@ class QueueServiceProviders extends ServiceProvider
     {
         $manager->extend('null', function($app, $config) {
             return new NullQueue($app);
+        });
+    }
+
+    /**
+     * Register driver Database.
+     *
+     * @param QueueManager $manager
+     */
+    protected function registerDatabaseQueue(QueueManager $manager)
+    {
+        $manager->extend('database', function($app, $config) {
+            return new DatabaseQueue(
+                $app,
+                $app['db']->connection($config['connection']),
+                $config['collection'],
+                $config['queue'],
+                $config['retry_after'] ? $config['retry_after'] : 60
+            );
         });
     }
 

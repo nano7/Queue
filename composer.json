@@ -14,6 +14,7 @@
         "php"             : ">=5.5.0",
         "nano7/foundation": "dev-master",
         "nano7/console"   : "dev-master",
+        "nano7/database"  : "dev-master",
         "aws/aws-sdk-php" : "3.0.*"
     },
 
