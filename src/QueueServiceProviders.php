@@ -3,6 +3,7 @@
 use Aws\Sqs\SqsClient;
 use Nano7\Queue\Queues\SqsQueue;
 use Nano7\Foundation\Support\Arr;
+use Nano7\Queue\Queues\NullQueue;
 use Nano7\Foundation\Support\ServiceProvider;
 
 class QueueServiceProviders extends ServiceProvider
@@ -27,10 +28,25 @@ class QueueServiceProviders extends ServiceProvider
         $this->app->singleton('queue', function () {
             $manager = new QueueManager($this->app, $this->app['config']->get('queue', []));
 
+            // Driver Null
+            $this->registerNullQueue($manager);
+
             // Driver Aws SQS
-            $this->registerAwsSqs($manager);
+            $this->registerAwsSqsQueue($manager);
 
             return $manager;
+        });
+    }
+
+    /**
+     * Register driver NULL.
+     *
+     * @param QueueManager $manager
+     */
+    protected function registerNullQueue(QueueManager $manager)
+    {
+        $manager->extend('null', function($app, $config) {
+            return new NullQueue($app);
         });
     }
 
@@ -39,7 +55,7 @@ class QueueServiceProviders extends ServiceProvider
      *
      * @param QueueManager $manager
      */
-    protected function registerAwsSqs(QueueManager $manager)
+    protected function registerAwsSqsQueue(QueueManager $manager)
     {
         $manager->extend('sqs', function($app, $config) {
 
