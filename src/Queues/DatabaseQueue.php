@@ -50,7 +50,7 @@ class DatabaseQueue extends Queue
         parent::__construct($app);
 
         $this->connection = $connection;
-        $this->connection = $connection;
+        $this->collection = $collection;
         $this->default = $default;
         $this->retryAfter = $retryAfter;
     }
