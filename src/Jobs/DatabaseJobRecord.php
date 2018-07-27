@@ -56,6 +56,8 @@ class DatabaseJobRecord
      */
     public function __get($key)
     {
+        $key = ($key == 'id') ? '_id' : $key;
+
         return $this->record->{$key};
     }
 }
