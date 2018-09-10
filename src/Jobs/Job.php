@@ -1,7 +1,7 @@
 <?php namespace Nano7\Queue\Jobs;
 
+use Nano7\Support\Arr;
 use Nano7\Foundation\Application;
-use Nano7\Foundation\Support\Arr;
 use Nano7\Queue\Contracts\JobContract;
 
 abstract class Job implements JobContract

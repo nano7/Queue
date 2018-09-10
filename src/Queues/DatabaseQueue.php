@@ -1,6 +1,6 @@
 <?php namespace Nano7\Queue\Queues;
 
-use Carbon\Carbon;
+use Nano7\Support\Carbon;
 use Nano7\Queue\Jobs\DatabaseJob;
 use Nano7\Foundation\Application;
 use Nano7\Database\Query\Builder;

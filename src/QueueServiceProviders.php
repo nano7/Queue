@@ -1,9 +1,9 @@
 <?php namespace Nano7\Queue;
 
+use Nano7\Support\Arr;
 use Aws\Sqs\SqsClient;
 use Nano7\Queue\Queues\DatabaseQueue;
 use Nano7\Queue\Queues\SqsQueue;
-use Nano7\Foundation\Support\Arr;
 use Nano7\Queue\Queues\NullQueue;
 use Nano7\Foundation\Support\ServiceProvider;
 

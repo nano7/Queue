@@ -1,8 +1,8 @@
 <?php namespace Nano7\Queue\Jobs;
 
+use Nano7\Support\Arr;
 use Aws\Sqs\SqsClient;
 use Nano7\Foundation\Application;
-use Nano7\Foundation\Support\Arr;
 
 class SqsJob extends Job
 {

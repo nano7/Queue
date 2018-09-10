@@ -1,6 +1,6 @@
 <?php namespace Nano7\Queue\Jobs;
 
-use Nano7\Foundation\Support\InteractsWithTime;
+use Nano7\Support\InteractsWithTime;
 
 class DatabaseJobRecord
 {

@@ -1,9 +1,9 @@
 <?php namespace Nano7\Queue\Queues;
 
-use Carbon\Carbon;
+use Nano7\Support\Carbon;
 use Nano7\Foundation\Application;
+use Nano7\Support\InteractsWithTime;
 use Nano7\Queue\Contracts\QueueContract;
-use Nano7\Foundation\Support\InteractsWithTime;
 
 abstract class Queue implements QueueContract
 {
